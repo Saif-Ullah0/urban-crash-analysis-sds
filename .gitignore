@@ -1,16 +1,39 @@
+# Data files
 data/
-outputs/models/
+
+# Large geo files
 *.csv
 *.gpkg
 *.pbf
 *.osm
 *.geojson
 *.zip
+*.json
+
+# Outputs
+outputs/models/
+outputs/maps/
+
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
+
+# Jupyter
 .ipynb_checkpoints/
+
+# Virtual environments
 .venv/
 venv/
+env/
+
+# Editors
 .vscode/
+.idea/
+
+# OS
 .DS_Store
 Thumbs.db
-*.html
+desktop.ini
