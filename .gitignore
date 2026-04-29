@@ -1,8 +1,39 @@
-backend/venv/
-backend/__pycache__/
-backend/*.pyc
-frontend/node_modules/
-frontend/dist/
-backend/data/
+# Data files
+data/
+
+# Large geo files
+*.csv
+*.gpkg
+*.pbf
+*.osm
+*.geojson
+*.zip
+*.json
+
+# Outputs
+outputs/models/
+outputs/maps/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors
+.vscode/
+.idea/
+
+# OS
 .DS_Store
 Thumbs.db
+desktop.ini
