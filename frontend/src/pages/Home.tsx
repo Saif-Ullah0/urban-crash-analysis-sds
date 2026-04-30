@@ -33,8 +33,10 @@ const pipeline = [
   'Feature Engineering', 'Model Training', 'Risk Map',
 ]
 
-export default function Home({ onOpenMap }: { onOpenMap: () => void }) {
-  return (
+export default function Home({ onOpenMap, onOpenStats }: {
+  onOpenMap: () => void
+  onOpenStats: () => void
+}) {  return (
     <div style={{ minHeight: '100vh', background: '#f5f6fa' }}>
 
       {/* header */}
@@ -91,6 +93,14 @@ export default function Home({ onOpenMap }: { onOpenMap: () => void }) {
               fontWeight: 600, cursor: 'pointer',
             }}>
               Try Route Finder
+            </button>
+            <button onClick={onOpenStats} style={{
+            background: 'white', color: '#2d3436',
+            border: '1px solid #e0e0e0', borderRadius: 8,
+            padding: '9px 20px', fontSize: 13,
+            fontWeight: 600, cursor: 'pointer', marginRight: 8,
+            }}>
+            View Stats
             </button>
             <a href="https://github.com/Saif-Ullah0/urban-crash-analysis-sds"
               target="_blank" rel="noreferrer"

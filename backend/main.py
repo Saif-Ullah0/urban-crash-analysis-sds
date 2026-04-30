@@ -168,3 +168,24 @@ def find_routes(req: RouteRequest):
         "shortest": path_stats(shortest),
         "balanced": path_stats(balanced),
     }
+    
+    
+@app.get("/borough-stats")
+def borough_stats():
+    # borough level risk breakdown for the stats page
+    borough_map = {
+        'Manhattan':    {'f1': 0.837, 'segments': 7657},
+        'Brooklyn':     {'f1': 0.848, 'segments': 18174},
+        'Queens':       {'f1': 0.852, 'segments': 22742},
+        'Bronx':        {'f1': 0.830, 'segments': 9684},
+        'Staten Island':{'f1': 0.835, 'segments': 6218},
+    }
+    return {
+        "boroughs": borough_map,
+        "models": {
+            "XGBoost":            {"f1": 0.848, "auc": 0.971},
+            "Random Forest":      {"f1": 0.840, "auc": 0.961},
+            "Decision Tree":      {"f1": 0.810, "auc": 0.870},
+            "Logistic Regression":{"f1": 0.561, "auc": 0.770},
+        }
+    }
