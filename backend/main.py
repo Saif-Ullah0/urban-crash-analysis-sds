@@ -189,3 +189,11 @@ def borough_stats():
             "Logistic Regression":{"f1": 0.561, "auc": 0.770},
         }
     }
+    
+@app.get("/risk-overlay")
+def risk_overlay():
+    # returns high and moderate risk segments as GeoJSON for map display
+    # we read the pre-generated file we created in the notebook
+    with open("data/roads_risk.geojson") as f:
+        data = json.load(f)
+    return data

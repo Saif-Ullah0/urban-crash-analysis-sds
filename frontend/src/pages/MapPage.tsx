@@ -69,10 +69,13 @@ export default function MapPage({ onBack }: { onBack: () => void }) {
   const clickCount = useRef(0)
   const startLL    = useRef<[number, number] | null>(null)
   const endLL      = useRef<[number, number] | null>(null)
+  const overlayLayerRef = useRef<L.GeoJSON | null>(null)
 
   const [status, setStatus]   = useState('Click on the map to set start point.')
   const [routes, setRoutes]   = useState<Routes | null>(null)
   const [loading, setLoading] = useState(false)
+  const [overlayOn, setOverlayOn]     = useState(false)
+  const [overlayLoading, setOverlayLoading] = useState(false)
 
   useEffect(() => {
     if (mapRef.current || !mapDivRef.current) return
@@ -178,6 +181,45 @@ export default function MapPage({ onBack }: { onBack: () => void }) {
     setStatus('Click on the map to set start point.')
   }
 
+  async function toggleOverlay() {
+    const map = mapRef.current
+    if (!map) return
+
+    // if overlay is on, remove it
+    if (overlayOn) {
+      if (overlayLayerRef.current) {
+        map.removeLayer(overlayLayerRef.current)
+        overlayLayerRef.current = null
+      }
+      setOverlayOn(false)
+      return
+    }
+
+    // if overlay is off, load and show it
+    setOverlayLoading(true)
+    try {
+      const res  = await fetch('http://localhost:8000/risk-overlay')
+      const data = await res.json()
+
+      overlayLayerRef.current = L.geoJSON(data, {
+        style: (f) => ({
+          color:   f?.properties.risk === 'High' ? '#e17055' : '#fdcb6e',
+          weight:  f?.properties.risk === 'High' ? 2.5 : 1.5,
+          opacity: 0.7,
+        }),
+        onEachFeature: (f, layer) => {
+          if (f.properties.street)
+            layer.bindTooltip(`${f.properties.street} — ${f.properties.risk} Risk`)
+        }
+      }).addTo(map)
+
+      setOverlayOn(true)
+    } catch {
+      setStatus('Could not load risk overlay.')
+    }
+    setOverlayLoading(false)
+  }
+
   const panelStyle: React.CSSProperties = {
     width: 280, background: 'white',
     borderLeft: '1px solid #e0e0e0',
@@ -265,9 +307,18 @@ export default function MapPage({ onBack }: { onBack: () => void }) {
               background: '#f5f6fa',
               color: '#636e72',
               border: '1px solid #e0e0e0',
-              marginBottom: 0,
+              marginBottom: 8,
             }}>
               Clear
+            </button>
+            <button onClick={toggleOverlay} disabled={overlayLoading} style={{
+              ...btnStyle,
+              background: overlayOn ? '#fff3f0' : '#f5f6fa',
+              color:      overlayOn ? '#e17055' : '#636e72',
+              border:     `1px solid ${overlayOn ? '#e17055' : '#e0e0e0'}`,
+              marginBottom: 0,
+            }}>
+              {overlayLoading ? 'Loading...' : overlayOn ? '🔴 Hide Risk Roads' : '🗺 Show Risk Roads'}
             </button>
           </div>
 
