@@ -220,6 +220,31 @@ export default function MapPage({ onBack }: { onBack: () => void }) {
     setOverlayLoading(false)
   }
 
+  function setLandmark(lat: number, lon: number) {
+    const map = mapRef.current
+    if (!map) return
+
+    if (clickCount.current === 0) {
+      if (startRef.current) map.removeLayer(startRef.current)
+      startRef.current = L.circleMarker([lat, lon], {
+        radius: 8, fillColor: '#00b894',
+        color: 'white', weight: 2, fillOpacity: 1,
+      }).addTo(map).bindPopup('Start').openPopup()
+      startLL.current = [lat, lon]
+      setStatus('Start set. Now click your destination.')
+      clickCount.current = 1
+    } else if (clickCount.current === 1) {
+      if (endRef.current) map.removeLayer(endRef.current)
+      endRef.current = L.circleMarker([lat, lon], {
+        radius: 8, fillColor: '#e17055',
+        color: 'white', weight: 2, fillOpacity: 1,
+      }).addTo(map).bindPopup('Destination').openPopup()
+      endLL.current = [lat, lon]
+      setStatus('Destination set. Press Find Routes.')
+      clickCount.current = 2
+    }
+  }
+
   const panelStyle: React.CSSProperties = {
     width: 280, background: 'white',
     borderLeft: '1px solid #e0e0e0',
@@ -292,6 +317,33 @@ export default function MapPage({ onBack }: { onBack: () => void }) {
             }}>
               {status}
             </div>
+          </div>
+
+          <div style={sectionStyle}>
+            <div style={labelStyle}>Quick Locations</div>
+            <div style={{ fontSize: 11, color: '#b2bec3', marginBottom: 8 }}>
+              1st click sets start · 2nd click sets destination
+            </div>
+            {[
+              { name: 'Times Square',    lat: 40.7580, lon: -73.9855 },
+              { name: 'Brooklyn Bridge', lat: 40.7061, lon: -73.9969 },
+              { name: 'Central Park',    lat: 40.7829, lon: -73.9654 },
+              { name: 'JFK Airport',     lat: 40.6413, lon: -73.7781 },
+              { name: 'Yankee Stadium',  lat: 40.8296, lon: -73.9262 },
+              { name: 'Coney Island',    lat: 40.5755, lon: -73.9707 },
+              { name: 'Wall Street',     lat: 40.7074, lon: -74.0113 },
+            ].map(loc => (
+              <button key={loc.name} onClick={() => setLandmark(loc.lat, loc.lon)}
+                style={{
+                  width: '100%', textAlign: 'left',
+                  padding: '7px 10px', marginBottom: 4,
+                  background: '#f8f9fa', border: '1px solid #f0f0f0',
+                  borderRadius: 6, fontSize: 12,
+                  color: '#2d3436', cursor: 'pointer',
+                }}>
+                📍 {loc.name}
+              </button>
+            ))}
           </div>
 
           <div style={sectionStyle}>
