@@ -1,9 +1,4 @@
 
----
-
-## README
-
-Create `README.md` in your project root `D:/SDS/Project/urban-crash-analytics/`:
 
 ```markdown
 # Urban Crash Analytics: A Spatial Analysis of Road Collision Risk in New York City
@@ -106,17 +101,5 @@ urban-crash-analytics/
 - NYC Motor Vehicle Collisions — https://data.cityofnewyork.us/resource/h9gi-nx95.csv
 - NYC Street Centerline — https://data.cityofnewyork.us/resource/inkn-q76z.geojson
 - NYC Borough Boundaries — https://github.com/dwillis/nyc-maps
-```
-
----
-
-Now commit:
-
-```bash
-cd /d/SDS/Project/urban-crash-analytics
-git add notebooks/BSCS23065_UCRSA_FMS.ipynb
-git add README.md
-git commit -m "Add final submission notebook and updated README"
-git push
 ```
 
