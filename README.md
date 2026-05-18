@@ -1,5 +1,3 @@
-
-
 # Urban Crash Analytics: A Spatial Analysis of Road Collision Risk in New York City
 
 **Student:** Saif Ullah (BSCS23065)  
@@ -13,8 +11,9 @@
 
 This project predicts road collision risk for NYC road segments using spatial 
 analysis and machine learning. We analyze 500,000 crash records (2021–2026), 
-apply spatial techniques (Moran's I, LISA, KDE, spatial regression), and train 
-an XGBoost classifier achieving F1 0.848 and AUC 0.971.
+apply spatial techniques including choropleth mapping, Moran's I, LISA, KDE, 
+and spatial regression, then train an XGBoost classifier achieving F1 0.848 
+and AUC 0.971.
 
 ---
 
@@ -66,19 +65,19 @@ urban-crash-analytics/
 
 ## Libraries Used
 
-| Library | Purpose | Covered in Class |
-|---------|---------|-----------------|
-| GeoPandas | Spatial data handling, spatial join | Yes |
-| libpysal | Spatial weights matrix | Yes |
-| esda | Moran's I, LISA | Yes |
-| Folium | Interactive maps | Yes |
-| Shapely | Geometric operations | Yes |
-| Scikit-Learn | ML models | No |
-| XGBoost | Gradient boosting classifier | No |
-| imbalanced-learn | SMOTE oversampling | No |
-| OSMnx | Road network download | No |
-| NetworkX | Graph-based routing | No |
-| SciPy | KDE point pattern analysis | No |
+| Library | Purpose |
+|---------|---------|
+| GeoPandas | Spatial data handling and spatial join |
+| libpysal | Spatial weights matrix |
+| esda | Moran's I and LISA |
+| Folium | Interactive maps |
+| Shapely | Geometric operations |
+| Scikit-Learn | ML models (Random Forest, Logistic Regression, Decision Tree) |
+| XGBoost | Gradient boosting classifier |
+| imbalanced-learn | SMOTE for class balancing |
+| OSMnx | Road network download |
+| NetworkX | Graph-based safe route finding |
+| SciPy | Kernel Density Estimation |
 
 ---
 
@@ -86,12 +85,16 @@ urban-crash-analytics/
 
 | Technique | Result |
 |-----------|--------|
-| Moran's I | 0.1643 (p=0.001) — significant spatial clustering |
-| LISA Hotspots | 33 High-High segments identified |
+| Choropleth Map | Brooklyn and Queens have highest crash counts |
+| Point Pattern KDE | Crash density peaks in Manhattan and inner Brooklyn/Queens |
+| Global Moran's I | 0.1643 (p=0.001) — significant positive spatial clustering |
+| LISA High-High Hotspots | 33 confirmed dangerous clusters identified |
+| LISA Low-Low Coldspots | 2,602 safe corridors identified |
+| Spatial Regression | R² improved from 0.5674 to 0.5691 with spatial lag |
 | XGBoost F1 | 0.848 |
 | XGBoost AUC | 0.971 |
 | Overall Accuracy | 89% |
-| Borough F1 range | 0.830 – 0.852 (consistent across all boroughs) |
+| Borough F1 range | 0.830 – 0.852 (consistent across all five boroughs) |
 
 ---
 
@@ -100,5 +103,3 @@ urban-crash-analytics/
 - NYC Motor Vehicle Collisions — https://data.cityofnewyork.us/resource/h9gi-nx95.csv
 - NYC Street Centerline — https://data.cityofnewyork.us/resource/inkn-q76z.geojson
 - NYC Borough Boundaries — https://github.com/dwillis/nyc-maps
-
-
