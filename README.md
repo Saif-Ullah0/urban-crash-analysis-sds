@@ -1,7 +1,7 @@
 # Urban Crash Analytics: A Spatial Analysis of Road Collision Risk in New York City
 
 **Student:** Saif Ullah (BSCS23065)  
-**Course:** CS592 — Spatial Data Science, Spring 2026  
+**Course:** CS592 - Spatial Data Science, Spring 2026  
 **Instructor:** Dr. Adnan Siddique  
 **Institution:** Information Technology University, Lahore  
 
@@ -87,7 +87,7 @@ urban-crash-analytics/
 |-----------|--------|
 | Choropleth Map | Brooklyn and Queens have highest crash counts |
 | Point Pattern KDE | Crash density peaks in Manhattan and inner Brooklyn/Queens |
-| Global Moran's I | 0.1643 (p=0.001) — significant positive spatial clustering |
+| Global Moran's I | 0.1643 (p=0.001) - significant positive spatial clustering |
 | LISA High-High Hotspots | 33 confirmed dangerous clusters identified |
 | LISA Low-Low Coldspots | 2,602 safe corridors identified |
 | Spatial Regression | R² improved from 0.5674 to 0.5691 with spatial lag |
@@ -100,6 +100,6 @@ urban-crash-analytics/
 
 ## Data Sources
 
-- NYC Motor Vehicle Collisions — https://data.cityofnewyork.us/resource/h9gi-nx95.csv
-- NYC Street Centerline — https://data.cityofnewyork.us/resource/inkn-q76z.geojson
-- NYC Borough Boundaries — https://github.com/dwillis/nyc-maps
+- NYC Motor Vehicle Collisions - https://data.cityofnewyork.us/resource/h9gi-nx95.csv
+- NYC Street Centerline - https://data.cityofnewyork.us/resource/inkn-q76z.geojson
+- NYC Borough Boundaries - https://github.com/dwillis/nyc-maps
